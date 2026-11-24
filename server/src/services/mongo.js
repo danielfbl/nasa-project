@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const os = require('node:os')
 
 require('dotenv').config()
 
@@ -13,7 +14,9 @@ mongoose.connection.on('error', (err) => {
 })
 
 async function mongoConnect() {
-    await mongoose.connect(MONGO_URL)
+    await mongoose.connect(MONGO_URL, {
+        runtimeAdapters: {os},
+    })
 }
 
 async function mongoDisconnect() {
